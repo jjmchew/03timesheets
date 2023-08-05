@@ -1,8 +1,3 @@
-<section>
-  <a href="<%= BASE_URL %>/projects/new">Add new project</a>
-  <a href="<%= BASE_URL %>/csv/all">CSV (all)</a>
-  <a href="<%= BASE_URL %>/tally">Tally</a>
-</section>
 <ul>
 <% @projects.each do |project| %>
   <li>
@@ -21,6 +16,8 @@
       <% end %>
     </div>
     <div>
+      <a class='sm' href="<%= BASE_URL %>/projects/<%= project[:id] %>/tally">Tally</a>
+      <a class='sm' href="<%= BASE_URL %>/projects/<%= project[:id] %>/csv">CSV</a>
       <form action="<%= BASE_URL %>/projects/<%= project[:id] %>/hide" method='post'>
         <input class='sm' type='submit' value='Hide'>
       </form>
@@ -28,3 +25,11 @@
   </li>
 <% end %>
 </ul>
+
+<% content_for :header_links do %>
+<section>
+  <a href="<%= BASE_URL %>/projects/new">Add new project</a>
+  <a href="<%= BASE_URL %>/csv/all">CSV (all)</a>
+  <a href="<%= BASE_URL %>/tally">Tally (all)</a>
+</section>
+<% end %>

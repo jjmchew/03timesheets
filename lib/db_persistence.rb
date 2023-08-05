@@ -54,7 +54,7 @@ class DatabasePersistence
     end
   end
 
-  def get_csv_out(user_id)
+  def get_csv_all(user_id)
     sql = <<~SQL
       SELECT projects.user_id,
              timers.project_id,
@@ -66,10 +66,37 @@ class DatabasePersistence
       FROM timers
       JOIN projects
       ON project_id = projects.id
-      WHERE projects.user_id = $1
+      WHERE projects.user_id = $1 
+        AND timers.end_time IS NOT NULL
       ORDER BY timers.start_time, timers.id
     SQL
     result = query(sql, user_id)
+    result.map do |tuple|
+      { project_id: tuple['project_id'].to_i,
+        date: Date.strptime(tuple['date'], '%Y-%m-%d'),
+        project_name: tuple['project_name'],
+        start_time: Time.strptime(tuple['start_time'], '%Y-%m-%d %H:%M:%S.%N'),
+        end_time: Time.strptime(tuple['end_time'], '%Y-%m-%d %H:%M:%S.%N') }
+    end
+  end
+
+  def get_csv_specific(user_id, project_id)
+    sql = <<~SQL
+      SELECT projects.user_id,
+             timers.project_id,
+             projects.project_name,
+             date(start_time),
+             timers.start_time,
+             timers.end_time,
+             exported
+      FROM timers
+      JOIN projects
+      ON project_id = projects.id
+      WHERE projects.user_id = $1 AND timers.project_id = $2 
+        AND timers.end_time IS NOT NULL
+      ORDER BY timers.start_time, timers.id
+    SQL
+    result = query(sql, user_id, project_id)
     result.map do |tuple|
       { project_id: tuple['project_id'].to_i,
         date: Date.strptime(tuple['date'], '%Y-%m-%d'),

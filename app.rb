@@ -21,7 +21,7 @@ end
 
 configure(:development) do
   require 'sinatra/reloader'
-  also_reload './lib/db_persistence.rb', './lib/helpers.rb', './lib/ts_tally'
+  also_reload './lib/db_persistence.rb', './lib/helpers.rb', './lib/ts_tally.rb'
 end
 
 helpers do
@@ -33,6 +33,14 @@ helpers do
   def user_id
     return nil unless valid_user?
     session[:user][:id]
+  end
+
+  def valid_projects
+    session[:user][:valid_projects]
+  end
+
+  def project_id
+    params[:project_id].to_i
   end
 end
 
@@ -92,7 +100,6 @@ post '/projects/:project_id/hide' do
   require_valid_user
   require_valid_project_id
 
-  project_id = params[:project_id].to_i
   @storage.hide_project(user_id, project_id)
   session[:message] = 'Project hidden'
   redirect url('/projects')
@@ -103,7 +110,6 @@ post '/projects/:project_id/start' do
   require_valid_user
   require_valid_project_id
 
-  project_id = params[:project_id].to_i
   @storage.start_timer(project_id)
   session[:message] = 'Timer started'
   redirect url('/projects')
@@ -114,7 +120,6 @@ post '/projects/:project_id/stop' do
   require_valid_user
   require_valid_project_id
 
-  project_id = params[:project_id].to_i
   @storage.stop_timer(project_id)
   session[:message] = 'Timer stopped'
   redirect url('/projects')
@@ -143,6 +148,28 @@ post '/projects/new' do
   end
 end
 
+# display tally for specific project
+get '/projects/:project_id/tally' do
+  require_valid_user
+  require_valid_project_id
+
+  data = csv_out_specific(project_id)
+  project = valid_projects.select { |obj| obj[:id].to_i == project_id }
+  project_name = project.first[:project_name]
+
+  headers['Content-Type'] = 'text/plain'
+  TSTally.new(data, project_name).display
+end
+
+# display csv output for specific project
+get '/projects/:project_id/csv' do
+  require_valid_user
+  require_valid_project_id
+
+  headers['Content-Type'] = 'text/plain'
+  csv_out_specific(project_id, true)
+end
+
 # display csv output on-screen
 get '/csv/all' do
   require_valid_user
@@ -154,7 +181,7 @@ end
 get '/tally' do
   require_valid_user
   headers['Content-Type'] = 'text/plain'
-  TSTally.new(csv_out_all).display
+  TSTally.new(csv_out_all, 'ALL PROJECTS').display
 end
 
 # display create new account page

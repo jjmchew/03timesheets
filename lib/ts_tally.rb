@@ -2,7 +2,8 @@ require 'csv'
 require 'time'
 
 class TSTally
-  def initialize(raw_csv)
+  def initialize(raw_csv, title='')
+    @title = title
     @contents = create_objs(raw_csv)
   end
 
@@ -58,7 +59,7 @@ class TSTally
   end
 
   def display_output(day_tally, wk_tally)
-    out = []
+    out = @title.empty? ? [] : ["  ===  #{@title}  ===  "]
     day_tally.each do |key, value|
       out << "#{week(key)} : #{key} : #{value.round(2)} hrs"
     end

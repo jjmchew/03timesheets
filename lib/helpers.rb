@@ -44,7 +44,19 @@ end
 
 def csv_out_all(str=false)
   out = [['date', 'desc', 'start', 'end']]
-  out += @storage.get_csv_out(user_id).map do |obj|
+  out += @storage.get_csv_all(user_id).map do |obj|
+    [dfrmt(obj[:date]),
+     obj[:project_name],
+     tfrmt(obj[:start_time]),
+     tfrmt(obj[:end_time])]
+  end
+  return out.map { |ary| ary.join(',') }.join("\n") if str
+  out
+end
+
+def csv_out_specific(project_id, str=false)
+  out = [['date', 'desc', 'start', 'end']]
+  out += @storage.get_csv_specific(user_id, project_id).map do |obj|
     [dfrmt(obj[:date]),
      obj[:project_name],
      tfrmt(obj[:start_time]),

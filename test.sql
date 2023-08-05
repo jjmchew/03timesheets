@@ -10,17 +10,30 @@
 
 -- ------------------------------------
 
+-- SELECT projects.user_id,
+--        timers.project_id,
+--        date(start_time),
+--        projects.project_name,
+--        timers.start_time,
+--        timers.end_time,
+--        exported
+-- FROM timers
+-- JOIN projects
+-- ON project_id = projects.id
+-- WHERE projects.user_id = 2
+-- ORDER BY timers.start_time, timers.id
+
+-- ------------------------------------
+
 SELECT projects.user_id,
-       timers.project_id,
-       date(start_time),
-       projects.project_name,
-       timers.start_time,
-       timers.end_time,
-       exported
+        timers.project_id,
+        projects.project_name,
+        date(start_time),
+        timers.start_time,
+        timers.end_time,
+        exported
 FROM timers
 JOIN projects
 ON project_id = projects.id
-WHERE projects.user_id = 2
+WHERE projects.user_id = 2 AND timers.project_id = 3
 ORDER BY timers.start_time, timers.id
-
--- ------------------------------------

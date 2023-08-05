@@ -10,8 +10,11 @@
 
 <body>
   <header>
-    <h1>Timesheets</h1>
-    <%== yield_content :header_links %>
+    <% if session[:user] %>
+      <%== yield_content :header_links %>
+    <% else %>
+      <h1>Timesheets</h1>
+    <% end %>
     <aside>
       <% if session[:error] %>
         <div class='flash_error'><%= session.delete(:error) %></div>
@@ -33,8 +36,6 @@
       <a class='lg attn' href="<%= BASE_URL %>/login">Login</a>
     <% end %>
   </header>
-
-
 
   <main>
     <%== yield %>
