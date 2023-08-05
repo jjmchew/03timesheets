@@ -171,7 +171,7 @@ post '/users/new' do
     pw_hash = pw_hash(params[:pw])
     @storage.create_new_user(user_hash, pw_hash)
     session[:message] = 'New user successfully created.  Please login.'
-    redirect '/login'
+    redirect url('/login')
   else
     error_msg(400, errors.join(', '))
     erb :new_user
