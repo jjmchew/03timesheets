@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap');
+
+html {
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  
+  color: black;
+  --highlight-color: #e21818;
+  --headline-color: #00235b;
+  --sub-head-color: #023586;
+  --secondary-color: #ffdd83;
+  --tertiary-color: #98dfd6;
+  --timer_stop: #ef4565;
+  --timer_start: #004643;
+  --grey-color: #e5e5e5;
+}
+header,
+main {
+  padding: 1rem 4rem 0 2rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+aside {
+  height: 1rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+  color: var(--headline-color);
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--sub-head-color);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+form {
+  display: inline-block;
+}
+
+input[type='text'],
+input[type='password'] {
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: 1px solid var(--grey-color);
+  border-radius: 8px;
+  appearance: none;
+  outline: none;
+  box-shadow: none;
+  width: 50ch;
+}
+input[type='text']:focus,
+input[type='text']:active,
+input[type='password']:focus,
+input[type='password']:active {
+  border: 1px solid var(--highlight-color); 
+}
+
+/* ========  */
+
+a,
+input[type='submit'] {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--headline-color);
+  padding: 0 1ch 0 0;
+}
+a:hover,
+input[type='submit']:hover {
+  color: var(--highlight-color);
+}
+
+a.lg,
+input[type='submit'].lg {
+  font-size: 1.3rem;
+}
+.sm,
+a.sm,
+input[type='submit'].sm {
+  font-size: 0.8rem;
+}
+.sm {
+  margin-top: 0.2rem;
+  font-weight: 300;
+}
+
+.attn {
+  font-weight: 700;
+  color: var(--highlight-color);
+  text-align: center;
+}
+a.attn:hover {
+  color: var(--secondary-color);
+  border-bottom: 2px solid var(--secondary-color);
+  animation: none;
+}
+
+/* ========  */
+
+.flash_message,
+.flash_error {
+  padding: 0.5rem 20ch;
+  text-align: center;
+  /* margin: 1rem 0; */
+}
+
+.flash_error {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.flash_message {
+  background-color: var(--tertiary-color);
+}
+
+/* ========  */
+
+input.start,
+input.stop {
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: 1.5px solid;
+  border-radius: 8px;
+}
+input.start{
+  border-color: var(--timer_start);
+  color: var(--timer_start);
+  background-color: white;
+}
+input.stop {
+  background-color: var(--timer_stop);
+  color: white;
+}
+input.start:hover{
+  background-color: var(--timer_start);
+  color: white;
+}
+input.stop:hover{
+  border-color: var(--timer_stop);
+  background-color: white;
+  color: var(--timer_stop);
+}
+
+/* ======== for forms */
+
+form.txt_form > label {
+  display: block;
+  margin: 0.8rem 0;
+}
+form.txt_form span {
+  display: inline-block;
+  width: 15ch;
+  text-align: right;
+  margin: 0 2ch 0 0;
+}
+form.txt_form input[type='submit'] {
+  margin: 1rem 0 0 14ch;
+  display: block;
+}
+
+.new_account {
+  margin: 6rem 0 0 18ch;
+}
+
+.change_pw {
+  margin-top: 2rem;
+}
+.change_pw label:first-of-type,
+.delete_account label {
+  color: var(--secondary-color);
+}
+.delete_account {
+  margin: 6rem 0;
+}
+.delete_account p {
+  margin: 0 0 0 18ch;
+  font-weight: 300;
+  line-height: 1.3rem;
+}
+.delete_account p:first-of-type {
+  margin-top: 2rem;
+}
+a.cancel_link {
+  display: block;
+  margin: 3rem 0 0 18.2ch;
+}
+
+/* ============= for projects.erb */
+li {
+  margin: 0.5rem 0;
+}
+li > div {
+  display: inline-block;
+}
+.project_name {
+  width: 25ch;
+}

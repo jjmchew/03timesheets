@@ -1,0 +1,12 @@
+<h2>Create New Account</h2>
+<form class='txt_form' action='<%= BASE_URL %>/users/new' method='post'>
+  <label for='username'>
+    <span>New username</span>
+    <input type='text' id='username' name='username' value='<%= params[:username] %>' autofocus>
+  </label>
+  <label for='pw'>
+    <span>Choose password</span>
+    <input type='password' id='pw' name='pw'>
+  </label>
+  <input class='lg' type='submit' value='Create Account'>
+</form>

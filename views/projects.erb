@@ -1,0 +1,30 @@
+<section>
+  <a href="<%= BASE_URL %>/projects/new">Add new project</a>
+  <a href="<%= BASE_URL %>/csv/all">CSV (all)</a>
+  <a href="<%= BASE_URL %>/tally">Tally</a>
+</section>
+<ul>
+<% @projects.each do |project| %>
+  <li>
+    <div class='project_name'>
+      <%= project[:project_name] %>
+    </div>
+    <div>
+      <% if project[:timer_on] == 1 %>
+        <form action="<%= BASE_URL %>/projects/<%= project[:id] %>/stop" method='post'>
+          <input class='stop' type='submit' value='Stop Timer'>
+        </form>
+      <% else %>
+        <form action="<%= BASE_URL %>/projects/<%= project[:id] %>/start" method='post'>
+          <input class='start' type='submit' value='Start Timer'>
+        </form>
+      <% end %>
+    </div>
+    <div>
+      <form action="<%= BASE_URL %>/projects/<%= project[:id] %>/hide" method='post'>
+        <input class='sm' type='submit' value='Hide'>
+      </form>
+    </div>
+  </li>
+<% end %>
+</ul>

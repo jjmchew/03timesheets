@@ -1,0 +1,14 @@
+<form class='txt_form' action='<%= BASE_URL %>/projects/new' method='post'>
+  <label for='new_project_name'>
+    <span>Project name</span>
+    <input id='new_project_name' 
+      name='new_project_name' 
+      type='text' 
+      placeholder='Describe your project here' 
+      value='<%= params[:new_project_name] %>'
+      autofocus
+    >
+  </label>
+  <input class='lg' type='submit' value='Add New project'>
+</form>
+<a class='cancel_link' href='<%= BASE_URL %>/projects'>Cancel</a>

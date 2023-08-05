@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <title></title>
+  <meta charset='utf-8'>
+  <link rel='stylesheet' href="<%= url('/stylesheets/css-reset.css') %>">
+  <link rel='stylesheet' href="<%= url('/stylesheets/app.css') %>">
+</head>
+
+<body>
+  <header>
+    <h1>Timesheets</h1>
+    <%== yield_content :header_links %>
+    <aside>
+      <% if session[:error] %>
+        <div class='flash_error'><%= session.delete(:error) %></div>
+      <% end %>
+
+      <% if session[:message] %>
+        <div class='flash_message'><%= session.delete(:message) %></div>
+      <% end %>
+    </aside>
+    <% if session[:user] %>
+      <div>
+        <span class="sm"><%= user %></span>
+        <!--<a class='sm' href="<%= BASE_URL %>/users/edit"><%= user %></a>-->
+        <form action="<%= BASE_URL %>/logout" method='post'>
+          <input class='lg' type='submit' value='Logout'>
+        </form>
+      </div>
+    <% else %>
+      <a class='lg attn' href="<%= BASE_URL %>/login">Login</a>
+    <% end %>
+  </header>
+
+
+
+  <main>
+    <%== yield %>
+  </main>
+</body>
+</html>
