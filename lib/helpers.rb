@@ -66,12 +66,12 @@ def csv_out_specific(project_id, str=false)
   out
 end
 
-def dfrmt(date)
-  date.strftime('%d-%b-%y')
+def dfrmt(time)
+  time.localtime(MY_ZONE).strftime('%d-%b-%y')
 end
 
 def tfrmt(time)
-  time.strftime('%H:%M:%S')
+  time.localtime(MY_ZONE).strftime('%H:%M:%S')
 end
 
 # ----------- user-related --------------

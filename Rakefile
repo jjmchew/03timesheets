@@ -23,7 +23,7 @@ desc 'setup initial db using psql'
 # change 'projdb' to fit localonly.yml :dbname
 task :db do
   sh 'psql < setup_db.sql'
-  sh 'psql -d jjmchewa_timesheets < schema.sql'
+  sh 'psql -d jjmchewa_timesheets < schema1.sql'
   sh 'psql -d jjmchewa_timesheets < sample_data.sql'
 end
 

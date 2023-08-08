@@ -50,7 +50,7 @@ class DatabasePersistence
       { id: tuple['id'].to_i,
         project_name: tuple['project_name'],
         timer_on: tuple['timer_on'].to_i,
-        created_on: DateTime.strptime(tuple['created_on'], '%Y-%m-%d %H:%M:%S.%N') }
+        created_on: Time.strptime(tuple['created_on'], '%Y-%m-%d %H:%M:%S.%N%z') }
     end
   end
 
@@ -59,7 +59,7 @@ class DatabasePersistence
       SELECT projects.user_id,
              timers.project_id,
              projects.project_name,
-             date(start_time),
+             start_time AS date,
              timers.start_time,
              timers.end_time,
              exported
@@ -73,10 +73,10 @@ class DatabasePersistence
     result = query(sql, user_id)
     result.map do |tuple|
       { project_id: tuple['project_id'].to_i,
-        date: Date.strptime(tuple['date'], '%Y-%m-%d'),
+        date: Time.strptime(tuple['date'], '%Y-%m-%d %H:%M:%S.%N%z'),
         project_name: tuple['project_name'],
-        start_time: Time.strptime(tuple['start_time'], '%Y-%m-%d %H:%M:%S.%N'),
-        end_time: Time.strptime(tuple['end_time'], '%Y-%m-%d %H:%M:%S.%N') }
+        start_time: Time.strptime(tuple['start_time'], '%Y-%m-%d %H:%M:%S.%N%z'),
+        end_time: Time.strptime(tuple['end_time'], '%Y-%m-%d %H:%M:%S.%N%z') }
     end
   end
 
@@ -85,7 +85,7 @@ class DatabasePersistence
       SELECT projects.user_id,
              timers.project_id,
              projects.project_name,
-             date(start_time),
+             start_time AS date,
              timers.start_time,
              timers.end_time,
              exported
@@ -99,10 +99,10 @@ class DatabasePersistence
     result = query(sql, user_id, project_id)
     result.map do |tuple|
       { project_id: tuple['project_id'].to_i,
-        date: Date.strptime(tuple['date'], '%Y-%m-%d'),
+        date: Time.strptime(tuple['date'], '%Y-%m-%d %H:%M:%S.%N%z'),
         project_name: tuple['project_name'],
-        start_time: Time.strptime(tuple['start_time'], '%Y-%m-%d %H:%M:%S.%N'),
-        end_time: Time.strptime(tuple['end_time'], '%Y-%m-%d %H:%M:%S.%N') }
+        start_time: Time.strptime(tuple['start_time'], '%Y-%m-%d %H:%M:%S.%N%z'),
+        end_time: Time.strptime(tuple['end_time'], '%Y-%m-%d %H:%M:%S.%N%z') }
     end
   end
   # rubocop:enable Metrics/MethodLength, Layout/LineLength

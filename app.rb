@@ -12,6 +12,7 @@ require_relative './lib/ts_tally'
 CONFIG = YAML.load(File.read('localonly.yml'))
 
 BASE_URL = ENV['RACK_ENV'] == 'production' ? '/timesheets' : ''
+MY_ZONE = '-06:00'
 
 configure do
   enable :sessions
